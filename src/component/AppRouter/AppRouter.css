@@ -1,0 +1,11 @@
+button{
+    margin: 2%;
+}
+.header{
+    font-family: none;
+    padding-top: 26px;
+}
+.title{
+    font-family: 'Lobster Two', cursive;
+    color: #ff5722;
+}

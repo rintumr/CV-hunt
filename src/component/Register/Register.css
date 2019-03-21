@@ -1,0 +1,38 @@
+.register{
+    border: 1px solid #e01616;
+    margin: 5% 20% 15% 20%;
+    padding: 3%;
+    border-radius: 5%;
+}
+.registerHeader{
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.row{
+    margin-top: 15px;
+}
+.redirectText{
+    text-align: left;
+    font-size: 14px;
+}
+
+input{
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+label{
+    display: flex;
+    margin: 0;
+    font-size: 15px;
+}
+input:disabled{
+    cursor: not-allowed;
+}
+button:disabled{
+    cursor: not-allowed;
+}
