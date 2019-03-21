@@ -8,72 +8,76 @@ import Login from '../Login/Login';
 import Modal from '../Modal/Modal';
 
 class AppRouter extends Component {
-    
-    constructor(){
+
+    constructor() {
         super();
-        this.state ={
-            message:'',
-            status:'',
-            success:'',
-            showModal:false
-        } 
+        this.state = {
+            message: '',
+            status: '',
+            success: '',
+            showModal: false
+        }
     }
 
-    stateHandler = (value)=>{
+    // Function to update the API response in state
+
+    stateHandler = (value) => {
         console.log("State");
-        let data = {...this.state};
+        let data = { ...this.state };
         data.message = value.message;
         data.status = value.status;
         data.success = value.success;
         this.updateState(data);
         this.toggleModal();
     }
-    
-    toggleModal = ()=>{
-        let data = {...this.state};
+
+    // Function to toggle Modal
+
+    toggleModal = () => {
+        let data = { ...this.state };
         data.showModal = !data.showModal;
         this.updateState(data);
     }
-    
-    updateState(value){
+
+    updateState(value) {
         this.setState(value);
     }
 
     render() {
         let display = null;
         console.log(this.state.showModal);
-        if(this.state.showModal){
-            display = <Modal data={this.state} onClose={this.toggleModal}/>
+        if (this.state.showModal) {
+            display = <Modal data={this.state} onClose={this.toggleModal} />
         }
 
         return (
             <div>
                 {display}
                 <Router>
-                <div>
-                    <h1 className="header">
-                    Welcome to <span className="title">CV Hunt</span>
-                    </h1>
-                    <hr/>
-                    <this.Header />
-                    <Route path="/login" component={Login}/>
-                    <Route path="/register" render={()=><Register changeState={this.stateHandler}/>}/>
-                </div>
-            </Router>
-        </div> 
+                    <div>
+                        <h1 className="header">
+                            Welcome to <span className="title">CV Hunt</span>
+                        </h1>
+                        <hr />
+                        <this.Header />
+                        <Route path="/login" component={() => <Login changeState={this.stateHandler} />} />
+                        <Route path="/register" render={() => <Register changeState={this.stateHandler} />} />
+                    </div>
+                </Router>
+            </div>
         );
     }
-    
-    
-    
+
+    // Function to display the nav button
+
     Header() {
         return (
             <div>
-                <Link to ="/login">
-                <Button variant="success">Sign In</Button>
+                <Link to="/login">
+                    <Button variant="success">Sign In</Button>
                 </Link>
-                <Link to ="/register">
-                <Button variant="danger">New User</Button>
+                <Link to="/register">
+                    <Button variant="danger">New User</Button>
                 </Link>
             </div>
         );

@@ -10,10 +10,18 @@ class Modal extends Component {
     }
     render() {
         let header = '';
-        if (this.props.data.success === "true") {
+        let style = {};
+        console.log("PROPS", this.props.data.success);
+        if (this.props.data.success === true) {
             header = "SUCCESS!!";
+            style = {
+                color: "mediumseagreen"
+            }
         } else {
             header = "FAILED!!";
+            style = {
+                color: "red"
+            }
         }
 
         if (this.props.data.showModal) {
@@ -23,7 +31,7 @@ class Modal extends Component {
                         <div className="modal-content">
 
                             <div className="modal-header">
-                                <h4 className="modal-title">{header}</h4>
+                                <h4 className="modal-title" style={style}>{header}</h4>
                             </div>
 
                             <div className="modal-body">
@@ -31,7 +39,7 @@ class Modal extends Component {
                             </div>
 
                             <div className="modal-footer">
-                                <button type="button" className="btn btn-warning" onClick={this.props.onClose}>Close</button>
+                                <button type="button" className="btn btn-info" onClick={this.props.onClose}>Close</button>
                             </div>
 
                         </div>
@@ -48,7 +56,6 @@ class Modal extends Component {
 Modal.propTypes = {
     onClose: PropTypes.func.isRequired,
     data: PropTypes.object,
-    //   children: PropTypes.string
 };
 
 export default Modal;

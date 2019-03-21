@@ -4,14 +4,14 @@ import { FaExclamationCircle } from 'react-icons/fa';
 import './Validator.css';
 
 const Validate = (props) => {
-    
+
     let validateMessage = null;
 
     switch (props.name) {
 
         case 'userName':
             if (props.validate) {
-                validateMessage = "Enter a valid username."
+                validateMessage = "Username must be at least 8 characters long with no special characters."
             }
             break;
         case 'email':
@@ -26,7 +26,7 @@ const Validate = (props) => {
             break;
         case 'password':
             if (props.validate) {
-                validateMessage = "Password must contain atleast 4 alphanumeric characters without space.";
+                validateMessage = "Password must be at least 8 characters and must contain at least one lower case letter, one upper case letter and one digit.";
             }
             break;
         case 'loginPassword':

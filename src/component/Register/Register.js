@@ -40,15 +40,16 @@ class Register extends Component {
 
         if (event.target.name === "userName") {
             updateState.userName = event.target.value;
-            let enable = ((updateState.userName.length > 0 && (!updateState.userName.startsWith(" "))) ? false : true);
+            const re = /^[a-zA-Z0-9]{8,}$/;
+            let enable = (!(re.test(updateState.userName)));
             updateState.userNameValidate = enable;
             this.updateHandler(updateState);
         }
         else if (event.target.name === "email") {
             updateState.email = event.target.value;
-            const re = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$/;
+            const re = /^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,3})$/;
             let enable = false;
-            if (!(re.test(updateState.email) || (updateState.email > 0))) {
+            if (!((re.test(updateState.email) && (updateState.email.length > 0)))) {
                 enable = true;
             } else {
                 enable = false;
@@ -67,8 +68,9 @@ class Register extends Component {
         else if (event.target.name === "password") {
             updateState.password = event.target.value;
             let enableValidation = this.verificationHandler(updateState.password, updateState.confirmPassword);
-            let reWhiteSpace = new RegExp(/^\w*$/);
-            let enable = (((event.target.value.length > 3) && (reWhiteSpace.test(event.target.value))) ? false : true);
+            let reWhiteSpace = /^\S+\w{6,32}\S{1,}$/;
+            console.log("!@#",reWhiteSpace.test(updateState.password));
+            let enable = !reWhiteSpace.test(updateState.password);
             updateState.passwordValidate = enable;
             updateState.passwordVerification = enableValidation;
             this.updateHandler(updateState);
@@ -129,67 +131,67 @@ class Register extends Component {
     // Function to call POST API
 
     submitHandler(event) {
-        
+
         event.preventDefault();
         let isSubmit = true;
-        let self =this;
-        this.setState({isSubmitted:isSubmit});
+        let self = this;
+        this.setState({ isSubmitted: isSubmit });
         axios.post('http://cvhunt.com/API/signupInfo', {
-        username: self.state.user.userName,
-        password: self.state.user.password,
-        email: self.state.user.email,
-        usertype: self.state.user.userType
-    })
-        .then(function (response) {
-            console.log('POST',response.data.message);
-            self.props.changeState (response.data);
+            username: self.state.user.userName,
+            password: self.state.user.password,
+            email: self.state.user.email,
+            usertype: self.state.user.userType
         })
-        .catch(function (error) {
-            console.log('POST', error);
-        });
+            .then(function (response) {
+                console.log('POST', response.data.message);
+                self.props.changeState(response.data);
+            })
+            .catch(function (error) {
+                console.log('POST', error);
+            });
     }
 
     render() {
-        
+
         return (
             <div className="register">
-                <header className="registerHeader"><strong>REGISTER</strong></header><hr/>
-                    <div className="row">
-                        <div className="col-md-6">
-                            <label>User Name </label>
-                            <input type="text" name="userName" value={this.state.user.userName} onChange={this.changeHandler} />
+                <header className="registerHeader"><strong>REGISTER</strong></header><hr />
+                <div className="row">
+                    <div className="col-md-6">
+                        <label>User Name </label>
+                        <input type="text" name="userName" value={this.state.user.userName} onChange={this.changeHandler} />
 
-                            <Validator name="userName" validate={this.state.user.userNameValidate} />
+                        <Validator name="userName" validate={this.state.user.userNameValidate} />
 
-                            <label>Email </label>
-                            <input type="email" name="email" value={this.state.user.email} onChange={this.changeHandler} />
+                        <label>Email </label>
+                        <input type="email" name="email" value={this.state.user.email} onChange={this.changeHandler} />
 
-                            <Validator name="email" validate={this.state.user.emailValidate} />
+                        <Validator name="email" validate={this.state.user.emailValidate} />
 
-                            <label>Confirm Email </label>
-                            <input type="email" name="confirmEmail" value={this.state.user.confirmEmail} onChange={this.changeHandler} />
+                        <label>Confirm Email </label>
+                        <input type="email" name="confirmEmail" value={this.state.user.confirmEmail} onChange={this.changeHandler} />
 
-                            <Validator name="confirmEmail" validate={this.state.user.emailVerification} />
-                        </div>
+                        <Validator name="confirmEmail" validate={this.state.user.emailVerification} />
+                    </div>
 
-                        <div className="col-md-6">
-                            <label>Password </label>
-                            <input type="password" name="password" value={this.state.user.password} onChange={this.changeHandler} />
+                    <div className="col-md-6">
+                        <label>Password </label>
+                        <input type="password" name="password" value={this.state.user.password} onChange={this.changeHandler} />
 
-                            <Validator name="password" validate={this.state.user.passwordValidate} />
+                        <Validator name="password" validate={this.state.user.passwordValidate} />
 
-                            <label>Confirm Password </label>
-                            <input type="password" name="confirmPassword" value={this.state.user.confirmPassword} onChange={this.changeHandler} />
+                        <label>Confirm Password </label>
+                        <input type="password" name="confirmPassword" value={this.state.user.confirmPassword} onChange={this.changeHandler} />
 
-                            <Validator name="confirmPassword" validate={this.state.user.passwordVerification} />
+                        <Validator name="confirmPassword" validate={this.state.user.passwordVerification} />
 
-                            <label>User Type </label>
-                            <input type="text" name="userType" defaultValue={this.state.user.userType} disabled />
-
-                        </div>
+                        <label>User Type </label>
+                        <input type="text" name="userType" defaultValue={this.state.user.userType} disabled />
 
                     </div>
-                    <Button type="button" variant="info" disabled={this.buttonHandler()} onClick={this.submitHandler}>Submit</Button>
+
+                </div>
+                <Button type="button" variant="info" disabled={this.buttonHandler()} onClick={this.submitHandler}>Submit</Button>
                 <p className="redirectText">Already a member? <a href="/login">Click here</a></p>
             </div>
         )

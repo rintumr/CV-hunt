@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Button from 'react-bootstrap/Button';
+import axios from 'axios';
 
 import './Login.css';
 import Validator from '../Validator/Validator';
@@ -13,11 +14,13 @@ class Login extends Component {
             password: '',
             emailValidate: false,
             passwordValidate: false,
-            isValidated:false
+            isValidated: false
         }
-        console.log("Login", this.state);
         this.validateHandler = this.validateHandler.bind(this);
+        this.submitHandler = this.submitHandler.bind(this);
     }
+
+    // Function to validate fields
 
     validateHandler = (event) => {
         let userData = { ...this.state };
@@ -32,7 +35,7 @@ class Login extends Component {
             }
             userData.emailValidate = enable;
         }
-         else if (event.target.name === "password") {
+        else if (event.target.name === "password") {
             userData.password = event.target.value;
             let enable = false;
             if (userData.password.length > 0) {
@@ -45,16 +48,36 @@ class Login extends Component {
         this.setState(userData);
     }
 
+    // Function to enable/disable form button
 
     buttonHandler = () => {
-        let enable = {...this.state};
-        if(!(enable.passwordValidate || enable.emailValidate) && (enable.email.length>0 && enable.password.length>0)){
+        let enable = { ...this.state };
+        if (!(enable.passwordValidate || enable.emailValidate) && (enable.email.length > 0 && enable.password.length > 0)) {
             enable.isValidated = false;
-        }else{
+        } else {
             enable.isValidated = true;
         }
         let value = enable.isValidated;
         return (value);
+    }
+
+    // Function for API request
+
+    submitHandler(event) {
+
+        event.preventDefault();
+        let self = this;
+        axios.post('http://cvhunt.com/API/userLogin', {
+            password: self.state.password,
+            email: self.state.email,
+        })
+            .then(function (response) {
+                console.log('POST', response.data.message);
+                self.props.changeState(response.data);
+            })
+            .catch(function (error) {
+                console.log('POST', error);
+            });
     }
 
 
@@ -62,16 +85,14 @@ class Login extends Component {
         return (
             <div className="login">
                 <header className="loginHeader"><strong>LOGIN</strong></header>
-                <form name="login-form">
 
-                    <label>Email</label>
-                    <input type="email" name="email" onChange={this.validateHandler} />
-                    <Validator name="email" validate={this.state.emailValidate} />
-                    <label>Password</label>
-                    <input type="password" name="password" onChange={this.validateHandler} />
-                    <Validator name="loginPassword" validate={this.state.passwordValidate} />
-                    <Button variant="info" disabled={this.buttonHandler()}>Submit</Button>
-                </form>
+                <label>Email</label>
+                <input type="email" name="email" onChange={this.validateHandler} />
+                <Validator name="email" validate={this.state.emailValidate} />
+                <label>Password</label>
+                <input type="password" name="password" onChange={this.validateHandler} />
+                <Validator name="loginPassword" validate={this.state.passwordValidate} />
+                <Button type="button" variant="info" disabled={this.buttonHandler()} onClick={this.submitHandler}>Submit</Button>
                 <p className="redirectText">Not a member? <a href="/register">Click here</a></p>
             </div>
         );

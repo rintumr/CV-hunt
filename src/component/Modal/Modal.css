@@ -1,37 +1,3 @@
-/* 
-.modal {
-    display: block;
-    position: fixed;
-    z-index: 1; 
-    padding-top: 100px;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    overflow: auto;
-    background-color: rgba(0,0,0,0.4); 
-  }
-.modal-content {
-    background-color: #a1dab2;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #1cbf0f;
-    width: 80%;
-    color: white;
-    font-weight: bolder;
-    font-size: 30px;
-  }
-.modal-header{
-  margin-right: 10%;
-}
-.close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
-    cursor: pointer;
-  } */
-
   .modal{
     position: fixed;
     top: 0;
@@ -77,6 +43,7 @@
   }
 
   .modal-body {
+    font-size: 20px;
     position: relative;
     flex: 1 1 auto;
     padding: 1rem;
