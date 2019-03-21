@@ -5,13 +5,51 @@ import Button from 'react-bootstrap/Button';
 import './AppRouter.css';
 import Register from '../Register/Register';
 import Login from '../Login/Login';
+import Modal from '../Modal/Modal';
 
 class AppRouter extends Component {
+    
+    constructor(){
+        super();
+        this.state ={
+            message:'',
+            status:'',
+            success:'',
+            showModal:false
+        } 
+    }
+
+    stateHandler = (value)=>{
+        console.log("State");
+        let data = {...this.state};
+        data.message = value.message;
+        data.status = value.status;
+        data.success = value.success;
+        this.updateState(data);
+        this.toggleModal();
+    }
+    
+    toggleModal = ()=>{
+        let data = {...this.state};
+        data.showModal = !data.showModal;
+        this.updateState(data);
+    }
+    
+    updateState(value){
+        this.setState(value);
+    }
 
     render() {
+        let display = null;
+        console.log(this.state.showModal);
+        if(this.state.showModal){
+            display = <Modal data={this.state} onClose={this.toggleModal}/>
+        }
 
         return (
-            <Router>
+            <div>
+                {display}
+                <Router>
                 <div>
                     <h1 className="header">
                     Welcome to <span className="title">CV Hunt</span>
@@ -19,14 +57,15 @@ class AppRouter extends Component {
                     <hr/>
                     <this.Header />
                     <Route path="/login" component={Login}/>
-                    <Route path="/register" component={Register}/>
+                    <Route path="/register" render={()=><Register changeState={this.stateHandler}/>}/>
                 </div>
             </Router>
+        </div> 
         );
     }
-
     
-
+    
+    
     Header() {
         return (
             <div>
