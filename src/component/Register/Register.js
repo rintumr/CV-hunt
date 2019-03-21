@@ -68,8 +68,8 @@ class Register extends Component {
         else if (event.target.name === "password") {
             updateState.password = event.target.value;
             let enableValidation = this.verificationHandler(updateState.password, updateState.confirmPassword);
-            let reWhiteSpace = /^\S+\w{6,32}\S{1,}$/;
-            console.log("!@#",reWhiteSpace.test(updateState.password));
+            let reWhiteSpace = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+            console.log("!@#", reWhiteSpace.test(updateState.password));
             let enable = !reWhiteSpace.test(updateState.password);
             updateState.passwordValidate = enable;
             updateState.passwordVerification = enableValidation;
@@ -134,8 +134,8 @@ class Register extends Component {
 
         event.preventDefault();
         let isSubmit = true;
-        let self = this;
         this.setState({ isSubmitted: isSubmit });
+        let self = this;
         axios.post('http://cvhunt.com/API/signupInfo', {
             username: self.state.user.userName,
             password: self.state.user.password,
