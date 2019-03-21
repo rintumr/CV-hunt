@@ -25,7 +25,8 @@ class Register extends Component {
                 emailVerification:false,
                 passwordVerification:false,
             },
-            userType:'1'
+            userType:'1',
+            isSubmitted:false
         }
         console.log("[Register.js]", this.state);
         this.changeHandler = this.changeHandler.bind(this);
@@ -117,7 +118,7 @@ class Register extends Component {
     }
     formSubmit (event){
         event.preventDefault();
-        return <FormHandler/>;
+        console.log("Submitted", event);
     }
 
     render() {
@@ -128,34 +129,34 @@ class Register extends Component {
                     <div className="row">
                         <div className="col-md-6">
                             <label>User Name </label>
-                            <input type="text" name="userName" value={this.state.userName} onChange={this.changeHandler} />
+                            <input type="text" name="userName" value={this.state.user.userName} onChange={this.changeHandler} />
 
-                            <Validator name="userName" validate={this.state.userNameValidate}/>
+                            <Validator name="userName" validate={this.state.user.userNameValidate}/>
 
                             <label>Email </label>
-                            <input type="email" name="email" value={this.state.email} onChange={this.changeHandler} />
+                            <input type="email" name="email" value={this.state.user.email} onChange={this.changeHandler} />
 
-                            <Validator name="email" validate={this.state.emailValidate}/>
+                            <Validator name="email" validate={this.state.user.emailValidate}/>
 
                             <label>Confirm Email </label>
-                            <input type="email" name="confirmEmail" value={this.state.confirmEmail} onChange={this.changeHandler} />
+                            <input type="email" name="confirmEmail" value={this.state.user.confirmEmail} onChange={this.changeHandler} />
                            
-                            <Validator name="confirmEmail" validate={this.state.emailVerification}/>
+                            <Validator name="confirmEmail" validate={this.state.user.emailVerification}/>
                         </div>
 
                         <div className="col-md-6">
                             <label>Password </label>
-                            <input type="password" name="password" value={this.state.password} onChange={this.changeHandler} />
+                            <input type="password" name="password" value={this.state.user.password} onChange={this.changeHandler} />
 
-                            <Validator name="password" validate={this.state.passwordValidate}/>
+                            <Validator name="password" validate={this.state.user.passwordValidate}/>
                             
                             <label>Confirm Password </label>
-                            <input type="password" name="confirmPassword" value={this.state.confirmPassword} onChange={this.changeHandler} />
+                            <input type="password" name="confirmPassword" value={this.state.user.confirmPassword} onChange={this.changeHandler} />
 
-                            <Validator name="confirmPassword" validate={this.state.passwordVerification}/>
+                            <Validator name="confirmPassword" validate={this.state.user.passwordVerification}/>
 
                             <label>User Type </label>
-                            <input type="text" name="userType" defaultValue={this.state.userType} disabled />
+                            <input type="text" name="userType" defaultValue={this.state.user.userType} disabled />
 
                         </div>
 
