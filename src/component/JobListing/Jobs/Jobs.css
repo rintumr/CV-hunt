@@ -1,11 +1,11 @@
 .card{
-    width: 23%;
+    width: 25%;
     border: 1px solid #f7f3f3;
     box-shadow: 0 2px 2px #c1684c;
     margin: auto;
     padding: 16px;
     display: inline-flex;
-    margin: 5%;
+    margin: 3%;
     font-family: 'Times New Roman', Times, serif;
 }
 
