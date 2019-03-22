@@ -4,6 +4,7 @@ import axios from 'axios';
 
 import './Register.css';
 import Validator from '../Validator/Validator';
+// import FormHandler from '../FormHandler/FormHandler';
 
 class Register extends Component {
 
@@ -69,7 +70,7 @@ class Register extends Component {
             updateState.password = event.target.value;
             let enableValidation = this.verificationHandler(updateState.password, updateState.confirmPassword);
             let reWhiteSpace = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-            console.log("!@#", reWhiteSpace.test(updateState.password));
+            console.log("!@#",reWhiteSpace.test(updateState.password));
             let enable = !reWhiteSpace.test(updateState.password);
             updateState.passwordValidate = enable;
             updateState.passwordVerification = enableValidation;
@@ -135,6 +136,10 @@ class Register extends Component {
         event.preventDefault();
         let isSubmit = true;
         this.setState({ isSubmitted: isSubmit });
+        /*let response = null;
+        response = <FormHandler value={this.state} api='http://cvhunt.com/API/signupInfo'/>
+        console.log("REsponse",response);
+        this.props.changeState(response.data);*/
         let self = this;
         axios.post('http://cvhunt.com/API/signupInfo', {
             username: self.state.user.userName,

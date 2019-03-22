@@ -1,0 +1,25 @@
+.card{
+    width: 23%;
+    border: 1px solid #f7f3f3;
+    box-shadow: 0 2px 2px #c1684c;
+    margin: auto;
+    padding: 16px;
+    display: inline-flex;
+    margin: 5%;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.card-body{
+    padding: 0;
+}
+.card-footer{
+    padding: 0;
+}
+
+.description{
+    word-break: break-all;
+}
+tr{
+    border-bottom: 1px solid #cac4c4;
+    padding: 5%;
+}

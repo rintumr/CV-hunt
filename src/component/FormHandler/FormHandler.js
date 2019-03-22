@@ -3,11 +3,12 @@ import axios from 'axios';
 const formHandler = (props) => {
 
     console.log("Submit", props);
-    axios.post('http://cvhunt.com/API/signupInfo', {
-        username: "satlineglobal",
-        password: "Satlineglobal2018",
-        email: "satlineglobal@yopmail.com",
-        usertype: "1"
+    if(props.state.isSubmitted){
+        axios.post(props.api, {
+        username: props.value.user.userName,
+        password: props.value.user.password,
+        email: props.value.user.email,
+        usertype: props.value.user.userType
     })
         .then(function (response) {
             console.log('POST',response.data.message);
@@ -17,7 +18,10 @@ const formHandler = (props) => {
             console.log('POST', error);
             return error;
         });
-    return ;
+    }else{
+
+        return null;
+    }
 }
 
 export default formHandler;
